@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+  db_auth:
+    container_name: shop_db    
+    ports:
+      - "5432:5432"    
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=shop_db
+    image: postgres:16.4-alpine
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com  # Replace with your admin email
+      - PGADMIN_DEFAULT_PASSWORD=root  # Replace with your desired password
+    ports:
+      - "8080:80"  # Access pgAdmin on http://localhost:8080
+    depends_on:
+      - db_auth  # Ensure pgAdmin starts after PostgreSQL
+
+volumes:
+  db_data:  # Volume for storing PostgreSQL data
