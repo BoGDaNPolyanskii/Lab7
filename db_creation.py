@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Clients (
     client_name VARCHAR(100) NOT NULL,
     entity_type VARCHAR(10) CHECK (entity_type IN ('юридична', 'фізична')),
     address TEXT,
-    phone VARCHAR(15),
+    phone VARCHAR(15) CHECK (phone SIMILAR TO '\\+380[0-9]{9}'),
     contact_person VARCHAR(50),
     account_number VARCHAR(120) UNIQUE
 );
